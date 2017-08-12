@@ -1,4 +1,4 @@
-# pdf-bot-laravel
+# 🤖 pdf-bot-laravel
 
 Laravel integration for [pdf-bot, a Node microservice for generating PDFs using headless Chrome](https://github.com/esbenp/pdf-bot).
 
