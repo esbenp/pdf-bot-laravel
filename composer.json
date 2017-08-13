@@ -2,7 +2,7 @@
     "name": "optimus/pdf-bot",
     "autoload": {
         "psr-4": {
-            "Optimus\\LaravelBoilerplate\\": "src/"
+            "Optimus\\PdfBot\\": "src/"
         }
     },
     "require": {
