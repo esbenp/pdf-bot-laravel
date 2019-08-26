@@ -17,8 +17,7 @@ class PdfBotServiceProvider extends BaseProvider {
     public function bindInstance()
     {
         $this->app->singleton(PdfBot::class, function(){
-            $config = $this->app['config']->get('optimus.pdfbot');
-            $bot = new PdfBot($config);
+            $bot = new PdfBot();
             return $bot;
         });
     }
