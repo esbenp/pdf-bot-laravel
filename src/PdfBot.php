@@ -6,14 +6,17 @@ use GuzzleHttp\Client;
 
 class PdfBot
 {
-    public function push($url, array $meta = [], $priority = null)
+    public function push($url, array $meta = [], $priority = null, array $configOverrides = [])
     {
-        $config = config('optimus.pdfbot');
+        $resolveConfig = function ($key) use ($configOverrides) {
+            return !empty($configOverrides[$key]) ? $configOverrides[$key] : config(sprintf('optimus.pdfbot.%s', $key));
+        };
 
         $headers = [];
+        $apiToken = $resolveConfig('api_token');
 
-        if (!empty($config['api_token'])) {
-            $headers['authorization'] = 'Bearer ' . $config['api_token'];
+        if (!empty($apiToken)) {
+            $headers['authorization'] = 'Bearer ' . $apiToken;
         }
 
         $body = [
@@ -25,8 +28,10 @@ class PdfBot
             $body['priority'] = $priority;
         }
 
+        $server = $resolveConfig('server');
+
         $client = new Client();
-        return $client->request('POST', $config['server'], [
+        return $client->request('POST', $server, [
             'headers' => $headers,
             'json' => $body
         ]);
